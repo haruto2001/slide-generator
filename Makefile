@@ -20,7 +20,8 @@ run:
 	--mount type=bind,src=$(CURRENT_DIR)/poetry.lock,dst=$(WORK_DIR)/poetry.lock \
 	--mount type=bind,src=$(CURRENT_DIR)/README.md,dst=$(WORK_DIR)/README.md \
 	--mount type=bind,src=$(CURRENT_DIR)/src,dst=$(WORK_DIR)/src \
-    --mount type=bind,src=$(CURRENT_DIR)/test.md,dst=$(WORK_DIR)/test.md \
+    --mount type=bind,src=$(CURRENT_DIR)/theme,dst=$(WORK_DIR)/theme \
+    --mount type=bind,src=$(CURRENT_DIR)/samples,dst=$(WORK_DIR)/samples \
 	$(IMAGE_NAME) bash
 
 check:

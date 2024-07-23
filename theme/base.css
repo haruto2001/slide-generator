@@ -1,0 +1,43 @@
+/* @theme base.css */
+
+@import 'gaia';
+
+:root {
+    --color-accent: #152A64;
+    --color-background: #F8F8F8;
+    --color-foreground: #404040;
+    --color-highlight: #002060;
+    --color-dimmed: #A6A6A6;
+}
+
+footer {
+    color: var(--color-dimmed);
+    left: auto;
+    right: 125px;
+    font-size: 50%
+}
+
+section.h1 {
+    color: var(--color-foreground);
+    padding: .2em 30px;
+    border-left: 8px solid var(--color-accent);
+}
+
+section {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    padding: 30px 50px;
+}
+
+section:after {
+  position: absolute;
+  bottom: none;
+  right: 50px;
+  width: 70px; /* 正方形の幅 */
+  height: 60px; /* 正方形の高さ */
+  display: flex;
+  align-items: center; /* 垂直揃え */
+  justify-content: center; /* 水平揃え */
+  background: var(--color-accent); /* 背景色 */
+  color: white; /* ページ番号の色 */
+}
