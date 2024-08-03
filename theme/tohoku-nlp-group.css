@@ -17,14 +17,20 @@ footer {
     font-size: 50%
 }
 
-section.h1 {
+section.lead h1 {
+    font-size: 2.0em;
+    border-left: none;
+}
+
+h1 {
     color: var(--color-foreground);
-    padding: .2em 30px;
+    padding: .1em 30px;
     border-left: 8px solid var(--color-accent);
 }
 
 section {
     background-color: var(--color-background);
+    background-image: none;
     color: var(--color-foreground);
     padding: 30px 50px;
 }
@@ -33,11 +39,11 @@ section:after {
   position: absolute;
   bottom: none;
   right: 50px;
-  width: 70px; /* 正方形の幅 */
-  height: 60px; /* 正方形の高さ */
+  width: 70px;
+  height: 60px;
   display: flex;
-  align-items: center; /* 垂直揃え */
-  justify-content: center; /* 水平揃え */
-  background: var(--color-accent); /* 背景色 */
-  color: white; /* ページ番号の色 */
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent);
+  color: white;
 }
