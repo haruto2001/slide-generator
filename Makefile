@@ -1,9 +1,10 @@
-.PHONY:  build run check format
+.PHONY:  build run md2pdf check format
 
 IMAGE_NAME = "slide-generator"
 CONTAINER_VERSION = "3.13.0b4-slim-bullseye"
 CURRENT_DIR = $(shell pwd)
 WORK_DIR = "/work"
+CUSTOM_THEME = "tohoku-nlp-group"
 
 build: $(CURRENT_DIR)/Dockerfile $(CURRENT_DIR)/entrypoint.sh
 	docker build . \
@@ -19,10 +20,14 @@ run:
 	--mount type=bind,src=$(CURRENT_DIR)/pyproject.toml,dst=$(WORK_DIR)/pyproject.toml \
 	--mount type=bind,src=$(CURRENT_DIR)/poetry.lock,dst=$(WORK_DIR)/poetry.lock \
 	--mount type=bind,src=$(CURRENT_DIR)/README.md,dst=$(WORK_DIR)/README.md \
+	--mount type=bind,src=$(CURRENT_DIR)/Makefile,dst=$(WORK_DIR)/Makefile \
 	--mount type=bind,src=$(CURRENT_DIR)/src,dst=$(WORK_DIR)/src \
     --mount type=bind,src=$(CURRENT_DIR)/theme,dst=$(WORK_DIR)/theme \
     --mount type=bind,src=$(CURRENT_DIR)/samples,dst=$(WORK_DIR)/samples \
 	$(IMAGE_NAME) bash
+
+md2pdf:
+	marp --html --pdf --allow-local-files samples/markdown/test.md -o ./samples/pdf/test.pdf --theme theme/$(CUSTOM_THEME).css
 
 check:
 	poetry run ruff check $(CURRENT_DIR)/src
