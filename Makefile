@@ -1,7 +1,7 @@
 .PHONY:  build run md2pdf check format
 
 IMAGE_NAME = "slide-generator"
-CONTAINER_VERSION = "3.13.0b4-slim-bullseye"
+CONTAINER_VERSION = "3.12-slim-bullseye"
 WORKDIR = "/work"
 CUSTOM_THEME = "tohoku-nlp-group"
 
