@@ -7,6 +7,7 @@ ARG WORKDIR=/work
 ENV LANG ja_JP.UTF-8
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV PATH="/root/.cargo/bin:$PATH"
 
 RUN adduser --disabled-password --gecos "" ${USERNAME}
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
@@ -34,6 +35,8 @@ RUN npm install -g n && \
     n stable && \
     apt-get purge -y nodejs npm
 RUN npm install -g @marp-team/marp-cli
+
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 
 RUN pip install poetry && \
     poetry config virtualenvs.create false
