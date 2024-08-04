@@ -2,37 +2,36 @@
 
 IMAGE_NAME = "slide-generator"
 CONTAINER_VERSION = "3.13.0b4-slim-bullseye"
-CURRENT_DIR = $(shell pwd)
-WORK_DIR = "/work"
+WORKDIR = "/work"
 CUSTOM_THEME = "tohoku-nlp-group"
 
-build: $(CURRENT_DIR)/Dockerfile $(CURRENT_DIR)/entrypoint.sh
+build: ./Dockerfile ./entrypoint.sh
 	docker build . \
 	-t $(IMAGE_NAME) \
 	--build-arg CONTAINER_VERSION=$(CONTAINER_VERSION) \
-	--build-arg WORKDIR=$(WORK_DIR)
+	--build-arg WORKDIR=$(WORKDIR)
 
 run:
 	docker run -it --rm \
 	-e LOCAL_UID=$(shell id -u) \
 	-e LOCAL_GID=$(shell id -g) \
-	--env-file $(CURRENT_DIR)/.env \
-	--mount type=bind,src=$(CURRENT_DIR)/pyproject.toml,dst=$(WORK_DIR)/pyproject.toml \
-	--mount type=bind,src=$(CURRENT_DIR)/poetry.lock,dst=$(WORK_DIR)/poetry.lock \
-	--mount type=bind,src=$(CURRENT_DIR)/README.md,dst=$(WORK_DIR)/README.md \
-	--mount type=bind,src=$(CURRENT_DIR)/Makefile,dst=$(WORK_DIR)/Makefile \
-	--mount type=bind,src=$(CURRENT_DIR)/src,dst=$(WORK_DIR)/src \
-    --mount type=bind,src=$(CURRENT_DIR)/theme,dst=$(WORK_DIR)/theme \
-    --mount type=bind,src=$(CURRENT_DIR)/samples,dst=$(WORK_DIR)/samples \
+	--env-file ./.env \
+	--mount type=bind,src=./pyproject.toml,dst=$(WORKDIR)/pyproject.toml \
+	--mount type=bind,src=./poetry.lock,dst=$(WORKDIR)/poetry.lock \
+	--mount type=bind,src=./README.md,dst=$(WORKDIR)/README.md \
+	--mount type=bind,src=./Makefile,dst=$(WORKDIR)/Makefile \
+	--mount type=bind,src=./src,dst=$(WORKDIR)/src \
+    --mount type=bind,src=./theme,dst=$(WORKDIR)/theme \
+    --mount type=bind,src=./samples,dst=$(WORKDIR)/samples \
 	$(IMAGE_NAME) bash
 
 md2pdf:
 	marp --html --pdf --allow-local-files samples/markdown/test.md -o ./samples/pdf/test.pdf --theme theme/$(CUSTOM_THEME).css
 
 check:
-	poetry run ruff check $(CURRENT_DIR)/src
+	poetry run ruff check ./src
 
 format:
-	poetry run ruff format --diff $(CURRENT_DIR)/src
+	poetry run ruff format --diff ./src
 
 
